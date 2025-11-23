@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const multer = require('multer');
@@ -8,14 +8,14 @@ const upload = multer({ dest: 'uploads/' });
 
 const { Pool } = require('pg');
 
-// ---------------- PostgreSQL Connection ----------------
 const pool = new Pool({
-  user: 'postgres',          // CHANGE
-  host: 'localhost',         // CHANGE FOR RENDER
-  database: 'inventorydb',   // CHANGE
-  password: 'yourpassword',  // CHANGE
-  port: 5432,
+  user: process.env.DB_USER,
+  host: process.env.DB_HOST,
+  database: process.env.DB_NAME,
+  password: process.env.DB_PASSWORD,
+  port: process.env.DB_PORT,
 });
+
 
 // -------------------------------------------------------
 
