@@ -21,9 +21,11 @@ const pool = new Pool({
 
 app.use(bodyParser.json());
 app.use(cors({
-    origin: 'https://inventory-management-frontend-ph25.netlify.app',
+    origin: ['https://inventory-management-frontend-ph25.netlify.app'],
+    methods: ['GET','POST','PUT','DELETE'],
     credentials: true,
 }));
+
 
 app.listen(port, () => {
   console.log(`Server running: http://localhost:${port}`);
