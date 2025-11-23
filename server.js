@@ -1,12 +1,15 @@
 const express = require('express');
 const app = express();
+require('dotenv').config();
 const port = process.env.PORT || 3000;
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const multer = require('multer');
 const upload = multer({ dest: 'uploads/' });
 
+
 const { Pool } = require('pg');
+
 
 const pool = new Pool({
   user: process.env.DB_USER,
@@ -14,6 +17,9 @@ const pool = new Pool({
   database: process.env.DB_NAME,
   password: process.env.DB_PASSWORD,
   port: process.env.DB_PORT,
+  ssl: {
+  rejectUnauthorized: false
+}
 });
 
 
@@ -21,10 +27,14 @@ const pool = new Pool({
 
 app.use(bodyParser.json());
 app.use(cors({
-    origin: ['https://inventory-management-frontend-ph25.netlify.app'],
-    methods: ['GET','POST','PUT','DELETE'],
-    credentials: true,
+  origin: [
+    'https://inventory-management-frontend-ph25.netlify.app',
+    'http://localhost:5173'
+  ],
+  methods: ['GET','POST','PUT','DELETE'],
+  credentials: true,
 }));
+
 
 
 app.listen(port, () => {
